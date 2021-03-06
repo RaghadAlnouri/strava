@@ -13,7 +13,7 @@ The python code used for the Cloud function is [available here](https://github.c
 - Storing your Strava App values in Secret Manager.
 
 ## Architecture
-TBA
+![Architecture](https://github.com/maxhabra/strava-api-terraform/blob/master/architecture.png?raw=true)
 
 ## Workflow
 1. A Schedule (cronjob) is used to launch the Cloud Function at fixed interval (every x hours)
