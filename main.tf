@@ -123,7 +123,6 @@ resource "google_cloud_scheduler_job" "strava-job" {
 }
 
 # Cloud Function deployment
-/*
 # Code to deploy the cloud_function; requires configuration of source url
 # Cloud Function creation
 resource "google_cloudfunctions_function" "strava_function" {
@@ -139,7 +138,6 @@ resource "google_cloudfunctions_function" "strava_function" {
   max_instances         = 1
   service_account_email = google_service_account.service_account.email
   source_repository {
-    url = "YOUR_CLOUD_SOURCE_REPOSITORY_URL"
+    url = "https://us-central1-strava-d199d.cloudfunctions.net/strava-1"
   }
 }
-*/
