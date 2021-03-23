@@ -1,7 +1,7 @@
 variable "project" { 
-    default = "madmax-strava"
+    default = "strava-d199d"
 }
 
 variable "region" {
-  default = "northamerica-northeast1"
+  default = "us-central"
 }
