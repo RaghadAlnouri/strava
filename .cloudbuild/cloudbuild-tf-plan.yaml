@@ -1,0 +1,61 @@
+substitutions:
+ _WORKING_DIRECTORY: "00-bootstrap"
+steps:
+- id: 'setup'
+ name: 'gcr.io/${_PROJECT_ID}/terraform'
+ entrypoint: 'bash'
+ args: 
+ - -c
+ - |
+ echo "Setting up gcloud for impersonation"
+ gcloud config set auth/impersonate_service_account ${_TF_SA_EMAIL}
+ 
+steps:
+- id: 'Get TF Service Account'
+ name: gcr.io/$PROJECT_ID/terraform
+ entrypoint: 'bash'
+ args:
+ - -ce
+ - |
+ gcloud secrets versions access latest --project=${_PROJECT_ID} --secret=${_TF_SA_KEY} > /root/.ssh/service_account.json
+ volumes:
+ - name: 'ssh'
+ path: /root/.ssh
+- id: 'Store TF Service Account'
+ name: gcr.io/$PROJECT_ID/terraform
+ entrypoint: 'bash'
+ args:
+ - '-ce'
+ - |
+ chmod 600 /root/.ssh/service_account.json
+ volumes:
+ - name: 'ssh'
+ path: /root/.ssh
+- id: 'tf init'
+ name: 'gcr.io/${_PROJECT_ID}/terraform'
+ entrypoint: 'bash'
+ args:
+ - -c
+ - |
+ cd ${_WORKING_DIRECTORY}
+ export GOOGLE_APPLICATION_CREDENTIALS="/root/.ssh/service_account.json"
+ gcloud auth activate-service-account ${_TF_SA_EMAIL} --key-file="/root/.ssh/service_account.json" 
+ terraform init
+ cd -
+ volumes:
+ - name: 'ssh'
+ path: /root/.ssh
+- id: 'tf plan'
+ name: 'gcr.io/${_PROJECT_ID}/terraform'
+ entrypoint: 'bash'
+ args:
+ - -c
+ - |
+ cd ${_WORKING_DIRECTORY}
+ export GOOGLE_APPLICATION_CREDENTIALS="/root/.ssh/service_account.json"
+ gcloud auth activate-service-account ${_TF_SA_EMAIL} --key-file="/root/.ssh/service_account.json"
+ terraform plan
+ cd -
+ volumes:
+ - name: 'ssh'
+ path: /root/.ssh
