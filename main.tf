@@ -136,8 +136,8 @@ resource "google_cloudfunctions_function" "strava_function" {
   available_memory_mb   = 128
   timeout               = 60
   max_instances         = 1
-  service_account_email = google_service_account.service_account.email
+  service_account_email = service-656700838354@gcf-admin-robot.iam.gserviceaccount.com
   source_repository {
-    url = "https://us-central1-strava-d199d.cloudfunctions.net/strava-1"
+    url = "https://us-central1-strava-d199d.cloudfunctions.net/strava-api-function"
   }
 }
