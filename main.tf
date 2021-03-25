@@ -3,11 +3,13 @@ provider "google" {
   region  = var.region  # see variables.tf
 }
 
+
 # Service account for the function
 resource "google_service_account" "service_account" {
   account_id   = "strava-api-sa"
   display_name = "Strava Function Service Account"
 }
+
 
 #--- Permissions ---
 # Bigquery permissions
@@ -138,6 +140,6 @@ resource "google_cloudfunctions_function" "strava_function" {
   max_instances         = 1
   service_account_email = google_service_account.service_account.email
   source_repository {
-    url = "https://us-central1-strava-d199d.cloudfunctions.net/strava-api-function-1"
+    url = "https://github.com/maxhabra/strava-api-function.git"
   }
 }
