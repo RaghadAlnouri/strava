@@ -16,7 +16,7 @@ resource "google_project_iam_binding" "bigquery_job_iam" {
   project = var.project
   role    = "roles/bigquery.jobUser"
   members  = [
-    "serviceAccount:${"strava-d199d@appspot.gserviceaccount.com"}"
+    "serviceAccount:${google_service_account.service_account.email}"
     ]
 }
 
@@ -25,7 +25,7 @@ resource "google_project_iam_binding" "bigquery_iam" {
   project = var.project
   role    = "roles/bigquery.dataEditor"
   members  = [
-    "serviceAccount:${"strava-d199d@appspot.gserviceaccount.com"}"
+    "serviceAccount:${google_service_account.service_account.email}"
     ]
 }
 
@@ -34,7 +34,7 @@ resource "google_project_iam_binding" "secretmngr_iam" {
   project = var.project
   role    = "roles/secretmanager.secretAccessor"
   members  = [
-    "serviceAccount:${"strava-d199d@appspot.gserviceaccount.com"}"
+    "serviceAccount:${google_service_account.service_account.email}"
     ]
 }
 
@@ -43,7 +43,7 @@ resource "google_project_iam_binding" "function_iam" {
   project = var.project
   role    = "roles/cloudfunctions.invoker"
   members  = [
-    "serviceAccount:${"strava-d199d@appspot.gserviceaccount.com"}"
+    "serviceAccount:${google_service_account.service_account.email}"
     ]
 } 
 #--- END OF PERMISSIONS ---
@@ -117,7 +117,7 @@ resource "google_cloud_scheduler_job" "strava-job" {
     uri         = "https://${var.region}-${var.project}.cloudfunctions.net/strava-api"
     body        = base64encode("{}")
     oidc_token {
-      service_account_email = "strava-d199d@appspot.gserviceaccount.com"
+      service_account_email = google_service_account.service_account.email
     }
   }
 }
