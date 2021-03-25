@@ -91,8 +91,8 @@ resource "google_secret_manager_secret" "secret-clientsecret" {
 }
 
 # Refresh Token
-resource "google_secret_manager_secret" "secret-token" {
-  refresh_token = "strava_refreshtoken"
+resource "google_secret_manager_secret" "refreshtoken" {
+  secret_id = "strava_refreshtoken"
 
  replication {
     user_managed {
