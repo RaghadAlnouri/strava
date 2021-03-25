@@ -16,7 +16,7 @@ resource "google_project_iam_binding" "bigquery_job_iam" {
   project = var.project
   role    = "roles/bigquery.jobUser"
   members  = [
-    "serviceAccount:${google_service_account.service_account.email}"
+    "serviceAccount:${"strava-d199d@appspot.gserviceaccount.com"}"
     ]
 }
 
@@ -25,7 +25,7 @@ resource "google_project_iam_binding" "bigquery_iam" {
   project = var.project
   role    = "roles/bigquery.dataEditor"
   members  = [
-    "serviceAccount:${google_service_account.service_account.email}"
+    "serviceAccount:${"strava-d199d@appspot.gserviceaccount.com"}"
     ]
 }
 
@@ -34,7 +34,7 @@ resource "google_project_iam_binding" "secretmngr_iam" {
   project = var.project
   role    = "roles/secretmanager.secretAccessor"
   members  = [
-    "serviceAccount:${google_service_account.service_account.email}"
+    "serviceAccount:${"strava-d199d@appspot.gserviceaccount.com"}"
     ]
 }
 
@@ -43,7 +43,7 @@ resource "google_project_iam_binding" "function_iam" {
   project = var.project
   role    = "roles/cloudfunctions.invoker"
   members  = [
-    "serviceAccount:${google_service_account.service_account.email}"
+    "serviceAccount:${"strava-d199d@appspot.gserviceaccount.com"}"
     ]
 } 
 #--- END OF PERMISSIONS ---
@@ -91,7 +91,7 @@ resource "google_secret_manager_secret" "secret-clientsecret" {
 }
 
 # Refresh Token
-resource "google_secret_manager_secret" "refreshtoken" {
+resource "google_secret_manager_secret" "secret-token" {
   secret_id = "strava_refreshtoken"
 
  replication {
@@ -117,7 +117,7 @@ resource "google_cloud_scheduler_job" "strava-job" {
     uri         = "https://${var.region}-${var.project}.cloudfunctions.net/strava-api"
     body        = base64encode("{}")
     oidc_token {
-      service_account_email = google_service_account.service_account.email
+      service_account_email = "strava-d199d@appspot.gserviceaccount.com"
     }
   }
 }
@@ -136,7 +136,7 @@ resource "google_cloudfunctions_function" "strava_function" {
   available_memory_mb   = 128
   timeout               = 60
   max_instances         = 1
-  service_account_email = service-656700838354@gcf-admin-robot.iam.gserviceaccount.com
+  service_account_email = "strava-d199d@appspot.gserviceaccount.com"
   source_repository {
     url = "https://us-central1-strava-d199d.cloudfunctions.net/strava-api-function"
   }
