@@ -138,7 +138,7 @@ resource "google_cloudfunctions_function" "strava_function" {
   available_memory_mb   = 128
   timeout               = 60
   max_instances         = 1
-  service_account_email = "strava-d199d@appspot.gserviceaccount.com"
+  service_account_email = google_service_account.service_account.email
   source_repository {
     url = "https://github.com/RaghadAlnouri/strava-api-function"
   }
