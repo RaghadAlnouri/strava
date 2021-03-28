@@ -140,6 +140,6 @@ resource "google_cloudfunctions_function" "strava_function" {
   max_instances         = 1
   service_account_email = "strava-d199d@appspot.gserviceaccount.com"
   source_repository {
-    url = "https://github.com/maxhabra/strava-api-function"
+    url = "https://github.com/RaghadAlnouri/strava-api-function"
   }
 }
