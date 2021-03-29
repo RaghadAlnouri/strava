@@ -139,7 +139,7 @@ resource "google_cloudfunctions_function" "strava_function" {
   timeout               = 60
   max_instances         = 1
   service_account_email = google_service_account.service_account.email
-  source_repository {
+  source_repository = {
     url = https://source.developers.google.com/projects/Strava/repos/strava-api-function/moveable-aliases/master/paths/src
   }
 
