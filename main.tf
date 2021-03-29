@@ -125,13 +125,13 @@ resource "google_cloud_scheduler_job" "strava-job" {
 }
 
 # Cloud Function deployment
-# Code to deploy the cloud_function; requires configuration of source url
+# Code to deploy the cloud_function
 # Cloud Function creation
 resource "google_cloudfunctions_function" "strava_function" {
   name        = "strava-api-function"
   description = "Strava Function to export from Strava API to Bigquery"
   runtime     = "python38"
-  entry_point = "run"
+  entry_point = "main" 
   project     = var.project
   region      = var.region
   trigger_http          = true
@@ -139,8 +139,8 @@ resource "google_cloudfunctions_function" "strava_function" {
   timeout               = 60
   max_instances         = 1
   service_account_email = google_service_account.service_account.email
-  source_repository = {
-    url = https://source.developers.google.com/projects/Strava/repos/strava-api-function/moveable-aliases/master/paths/src
+  source_repository  {
+  url = "https://source.developers.google.com/projects/strava-d199d/repos/github_raghadalnouri_strava-api-function/moveable-aliases/master/paths/src"
   }
 
 }
