@@ -125,6 +125,7 @@ resource "google_cloud_scheduler_job" "strava-job" {
 }
 
 # Cloud Function deployment
+
 # Code to deploy the cloud_function
 # Cloud Function creation
 resource "google_cloudfunctions_function" "strava_function" {
@@ -140,7 +141,7 @@ resource "google_cloudfunctions_function" "strava_function" {
   max_instances         = 1
   service_account_email = google_service_account.service_account.email
   source_repository  {
-  url = "https://source.cloud.google.com/projects/Strava/repos/github_raghadalnouri_strava-api-function/moveable-aliases/main/paths/src/"
+  url = "https://source.cloud.google.com/projects/Strava/repos/github_raghadalnouri_strava-api-function/moveable-aliases/master/paths/src/"
   }
 
 
