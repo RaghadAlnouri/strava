@@ -140,6 +140,7 @@ resource "google_cloudfunctions_function" "strava_function" {
   max_instances         = 1
   service_account_email = google_service_account.service_account.email
   source_repository {
-    url = "https://github.com/RaghadAlnouri/strava-api-function"
+    url = https://source.developers.google.com/projects/Strava/repos/strava-api-function/moveable-aliases/master/paths/src
   }
+
 }
